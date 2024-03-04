@@ -6,7 +6,7 @@ export INSTALL_K3S_EXEC="--write-kubeconfig-mode=644 --tls-san $(hostname) --nod
 curl -sfL https://get.k3s.io | sh -
 
 echo "[K3S] : Copie du jeton du nœud maître vers (/vagrant/scripts/node-token)"
-sudo cp /var/lib/rancher/k3s/server/node-token /vagrant/scripts/
+sudo cp /var/lib/rancher/k3s/server/node-token /vagrant/confs/
 
 echo 'export PATH="/sbin:$PATH"' >> /home/vagrant/.bashrc
 
