@@ -8,6 +8,8 @@ curl -sfL https://get.k3s.io | sh -
 echo "[K3S] : Copie du jeton du nœud maître vers (/vagrant/scripts/node-token)"
 sudo cp /var/lib/rancher/k3s/server/node-token /vagrant/confs/
 sudo cp /vagrant/confs/app1.yaml /var/lib/rancher/k3s/server/
+sudo cp /vagrant/confs/index.html /vagrant/confs/k3s
+
 
 
 echo 'export PATH="/sbin:$PATH"' >> /home/vagrant/.bashrc
@@ -16,5 +18,7 @@ source /home/vagrant/.bashrc
 
 echo "[SETUP] : Initialisation des alias pour tous les utilisateurs de la machine"
 echo "alias k='kubectl'" | sudo tee /etc/profile.d/00-aliases.sh > /dev/null
+
+sudo  /usr/local/bin/kubectl apply -f /var/lib/rancher/k3s/server/app1.yaml
 
 echo "[Machine : $(hostname)] a été configurée avec succès!"
