@@ -9,10 +9,21 @@ echo "[K3S] : Copie du jeton du nœud maître vers (/vagrant/scripts/node-token)
 mkdir /usr/share/nginx
 mkdir /usr/share/nginx/html
 sudo cp /var/lib/rancher/k3s/server/node-token /vagrant/confs/
+
+#APP 1
+#mkdir /usr/share/nginx/html/app1/
 sudo cp /vagrant/confs/app1/app1.yaml /var/lib/rancher/k3s/server/
-sudo cp /vagrant/confs/app1/index1.html /usr/share/nginx/html
+sudo cp /vagrant/confs/app1/index.html /usr/share/nginx/html
+sudo kubectl create configmap app1-html --from-file /usr/share/nginx/html/index.html 
+sudo /usr/local/bin/kubectl apply -f /var/lib/rancher/k3s/server/app1.yaml
 
 
+#APP2
+# mkdir /usr/share/nginx/html/app2/
+# sudo cp /vagrant/confs/app2/app2.yaml /var/lib/rancher/k3s/server/
+# sudo cp /vagrant/confs/app2/index.html /usr/share/nginx/html/app2
+# sudo kubectl create configmap app2-html --from-file /usr/share/nginx/html/app2/index.html 
+# sudo /usr/local/bin/kubectl apply -f /var/lib/rancher/k3s/server/app2.yaml
 
 echo 'export PATH="/sbin:$PATH"' >> /home/vagrant/.bashrc
 
@@ -21,8 +32,6 @@ source /home/vagrant/.bashrc
 echo "[SETUP] : Initialisation des alias pour tous les utilisateurs de la machine"
 echo "alias k='kubectl'" | sudo tee /etc/profile.d/00-aliases.sh > /dev/null
 
-sudo  /usr/local/bin/kubectl apply -f /var/lib/rancher/k3s/server/app1.yaml
-sudo  kubectl create configmap app1-html --from-file /usr/share/nginx/html/index1.html 
 
 
 echo "[Machine : $(hostname)] a été configurée avec succès!"
