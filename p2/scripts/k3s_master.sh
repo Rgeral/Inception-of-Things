@@ -6,24 +6,24 @@ export INSTALL_K3S_EXEC="--write-kubeconfig-mode=644 --tls-san $(hostname) --nod
 curl -sfL https://get.k3s.io | sh -
 
 echo "[K3S] : Copie du jeton du nœud maître vers (/vagrant/scripts/node-token)"
-mkdir /usr/share/nginx
-mkdir /usr/share/nginx/html
+# mkdir /usr/share/nginx
+# mkdir /usr/share/nginx/app1
+# mkdir /usr/share/nginx/app1/html
 sudo cp /var/lib/rancher/k3s/server/node-token /vagrant/confs/
 
 #APP 1
-#mkdir /usr/share/nginx/html/app1/
-sudo cp /vagrant/confs/app1/app1.yaml /var/lib/rancher/k3s/server/
-sudo cp /vagrant/confs/app1/index.html /usr/share/nginx/html
-sudo kubectl create configmap app1-html --from-file /usr/share/nginx/html/index.html 
-sudo /usr/local/bin/kubectl apply -f /var/lib/rancher/k3s/server/app1.yaml
+sudo kubectl create configmap app1-html --from-file /vagrant/confs/app1/index.html
+sudo /usr/local/bin/kubectl apply -f /vagrant/confs/app1/app1.yaml
 
 
 #APP2
-# mkdir /usr/share/nginx/html/app2/
-# sudo cp /vagrant/confs/app2/app2.yaml /var/lib/rancher/k3s/server/
-# sudo cp /vagrant/confs/app2/index.html /usr/share/nginx/html/app2
-# sudo kubectl create configmap app2-html --from-file /usr/share/nginx/html/app2/index.html 
-# sudo /usr/local/bin/kubectl apply -f /var/lib/rancher/k3s/server/app2.yaml
+sudo kubectl create configmap app2-html --from-file /vagrant/confs/app2/index.html
+sudo /usr/local/bin/kubectl apply -f /vagrant/confs/app2/app2.yaml
+
+#APP3
+
+sudo kubectl create configmap app3-html --from-file /vagrant/confs/app3/index.html
+sudo /usr/local/bin/kubectl apply -f /vagrant/confs/app3/app3.yaml
 
 echo 'export PATH="/sbin:$PATH"' >> /home/vagrant/.bashrc
 
