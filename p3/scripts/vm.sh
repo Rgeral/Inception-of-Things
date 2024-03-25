@@ -5,4 +5,5 @@ VBoxManage storageattach "debian-iot" --storagectl "SATA" --port 1 --device 0 --
 VBoxManage unattended install "debian-iot" --iso="/home/rgeral/data/debian-12.5.0-amd64-netinst.iso" --user=rgeral --password=1234 --full-user-name="rgeral" --country=US --time-zone=UTC
 VBoxManage createhd --filename "/home/rgeral/data/debian-iot.vdi" --size 20480
 VBoxManage storageattach "debian-iot" --storagectl "SATA" --port 0 --device 0 --type hdd --medium "/home/rgeral/data/debian-iot.vdi"
+vboxmanage storageattach "debian-iot" --storagectl "SATA" --port 2 --device 0 --type dvddrive --medium b8bee39c-473a-4002-a7d5-a8c52eda2932
 VBoxManage startvm "debian-iot" --type headless
