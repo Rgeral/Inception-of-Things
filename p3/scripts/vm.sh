@@ -36,3 +36,8 @@ k3d cluster create kbarbry
 kubectl create namespace argocd
 sudo kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 sudo kubectl port-forward -n argocd svc/argocd-server 8080:443
+sudo kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+# login => localhost:8080
+# admin password 
+# then 
+#sudo argocd app create guestbook     --repo https://github.com/argoproj/argocd-example-apps.git     --path guestbook     --dest-server http://<argo-cd-server-ip>:<port>     --dest-namespace default
