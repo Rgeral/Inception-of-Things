@@ -2,9 +2,9 @@
 
 # basic config
 apt update -y
-apt-get install -y curl
 
 # cheking token
+echo "[LOG] - Checking for token file"
 TIMEOUT=10
 while [ ! -f "/vagrant_shared/token" ]; do
     sleep 1
@@ -16,7 +16,7 @@ while [ ! -f "/vagrant_shared/token" ]; do
 done
 
 # k3s
-echo "[LOG] - Install k3s"
+echo "[LOG] - Installing k3s"
 echo "[LOG] - Master node: $1"
 export K3S_TOKEN_FILE=/vagrant_shared/token
 export K3S_URL=https://$1:6443
@@ -27,5 +27,11 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-echo 'export PATH="/sbin:$PATH"' >> $HOME/.bashrc
+# alias k for kubectl
+echo "[LOG] - Alias for kubectl"
 echo "alias k='kubectl'" | sudo tee /etc/profile.d/00-aliases.sh > /dev/null
+
+# ifconfig
+echo "[LOG] - Update path for ifconfig"
+echo 'export PATH="/sbin:$PATH"' >> /etc/bash.bashrc
+source /etc/bash.bashrc
