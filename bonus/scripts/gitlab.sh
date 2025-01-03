@@ -53,5 +53,5 @@ password=$(sudo kubectl exec -n gitlab $(sudo kubectl get pods -n gitlab -l app=
 echo "$password" > .gitlab_password
 
 # print informations
-echo "gitlab available at: http://localhost/gitlab"
+echo "gitlab available at: http://localhost/gitlab/"
 echo "login: admin, password: $password"
